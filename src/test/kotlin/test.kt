@@ -12,25 +12,25 @@ class test {
 
     @Test
     fun testAddPost() {
-        val post = Post(1)
+        val post = Post(1, replyOwnerId=null, replyPostId=null)
         val addedPost = WallService.add(post)
         assertNotEquals(1, addedPost.id)
     }
 
     @Test
     fun testUpdateTrue() {
-        val post = Post(0)
+        val post = Post(0, replyOwnerId=null, replyPostId=null)
         WallService.add(post)
-        val updatedPost = Post(post.id)
+        val updatedPost = Post(post.id, replyOwnerId=null, replyPostId=null)
         val result = WallService.update(updatedPost)
         assertTrue(result)
     }
 
     @Test
     fun testUpdateFalse() {
-        val post = Post(0)
+        val post = Post(0, replyOwnerId=null, replyPostId=null)
         WallService.add(post)
-        val updatedPost = Post(1)
+        val updatedPost = Post(1, replyOwnerId=null, replyPostId=null)
         val result = WallService.update(updatedPost)
         assertFalse(result)
     }
