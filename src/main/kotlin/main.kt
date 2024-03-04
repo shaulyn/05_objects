@@ -7,7 +7,10 @@ data class Post(
     var canPin:Boolean = false,
     var canDelete:Boolean = false,
     var canEdit:Boolean = false,
-    var likes: Likes=Likes(1)
+    var likes: Likes=Likes(1),
+    var replyOwnerId: Int?,
+    var replyPostId: Int?
+
 )
 
 data class Likes(
@@ -29,7 +32,7 @@ object WallService{
     fun update(post: Post): Boolean {
         for(index in posts.indices){
             if(posts[index].id==post.id) {
-                posts[index] = post.copy(likes = post.likes.copy())
+                posts[index] = post.copy()
                 return true
             }
         }
@@ -54,12 +57,12 @@ object WallService{
 
 
 fun main(){
-    WallService.add(Post(0))
-    WallService.add(Post(1))
+    WallService.add(Post(0, replyOwnerId=null, replyPostId=null) )
+    WallService.add(Post(1, replyOwnerId=null, replyPostId=null))
     WallService.print()
-    WallService.add(Post(2))
-    WallService.update(Post(1, ownerId = 2, text = "sdfdsfsdfsd", likes = Likes(10)))
-    WallService.update(Post(5))
+    WallService.add(Post(2, replyOwnerId=null, replyPostId=null))
+    WallService.update(Post(1, ownerId = 2, text = "sdfdsfsdfsd", likes = Likes(10), replyOwnerId=1, replyPostId=1))
+    WallService.update(Post(5, replyOwnerId=1, replyPostId=1))
 
     WallService.print()
 
